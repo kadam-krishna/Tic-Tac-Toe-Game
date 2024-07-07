@@ -73,3 +73,13 @@ h1{
 .hide{
     display: none;
 }
+
+#turn{
+    font-size: 2rem;
+    margin-top: 1rem;
+    color: 	#b6b798;
+}
+.scoreprint{
+    color: antiquewhite;
+    font-size: 6vmin;
+}

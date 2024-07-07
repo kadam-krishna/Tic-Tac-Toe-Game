@@ -3,8 +3,20 @@ let rstBtn =  document.querySelector("#reset");
 let newBtn = document.querySelector("#newGame");
 let result = document.querySelector(".winner");
 let winnerDetails = document.querySelector("#winnerResult");
+let turn = document.querySelector("#turn");
+let scoreO = document.querySelector("#scoreO");
+let scoreX = document.querySelector("#scoreX");
 
-let turnO = true;
+playerOScore = 0;
+playerXScore = 0;
+
+let x = Math.random() *2;
+let turnO = x>1?true:false;
+if(!turnO){
+    turn.innerText = "Player X's turn";
+}else{
+    turn.innerText = "Player O's turn";
+}
 
 const winnerPatterns = [
     [0, 1, 2],
@@ -21,19 +33,35 @@ const winnerPatterns = [
 const resetGame = () => {
     turnO=true;
     enableinput();
+    playerOScore=0;
+    playerXScore=0;
+    result.classList.add("hide");
+}
+const newGame = () => {
+    turnO=true;
+    enableinput();
     result.classList.add("hide");
 }
 const printWinner = (winner) => {
     winnerDetails.innerText = `Player ${winner} wins`;
+    if(winner==="O"){
+        playerOScore++;
+    }else{
+        playerXScore++;
+    }
+    scoreO.innerText = `Player O Score: ${playerOScore}`;
+    scoreX.innerText = `Player X Score: ${playerXScore}`;
     result.classList.remove("hide");
 }
 board.forEach((box) => {
     box.addEventListener("click",() => {
         if(turnO){
             box.innerText = "O";
+            turn.innerText = "Player X's turn";
             turnO = false;
         }else{
             box.innerText = "X";
+            turn.innerText = "Player O's turn";
             turnO = true ;
         }
         box.disabled = true;
@@ -48,7 +76,7 @@ const disableinput = () => {
 }
 const enableinput = () => {
     for(let box of board){
-        box.disabled = true;
+        box.disabled = false;
         box.innerText = "";
     }
 }
@@ -73,5 +101,5 @@ const checkWinner = () => {
     }
 }
 
-newBtn.addEventListener("click",resetGame);
+newBtn.addEventListener("click",newGame);
 rstBtnBtn.addEventListener("click",resetGame);
